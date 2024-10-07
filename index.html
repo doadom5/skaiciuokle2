@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skaitytuvas</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Gaminio Kiekio Apskaičiavimas</h1>
+        <label for="planned">Planinis kiekis (vnt/h):</label>
+        <input type="number" id="planned" placeholder="Pvz., 104">
+        <br><br>
+        <label for="actual">Faktinis kiekis (vnt):</label>
+        <input type="number" id="actual" placeholder="Pvz., 195">
+        <br><br>
+        <label for="actualTime">Faktinis laikas (min):</label>
+        <input type="number" id="actualTime" placeholder="Pvz., 98">
+        <br><br>
+        <button onclick="calculate()">Apskaičiuoti</button>
+    </div>
+
+    <h2 id="result"></h2>
+
+    <script>
+        function calculate() {
+            const plannedQuantity = parseFloat(document.getElementById('planned').value);
+            const actualQuantity = parseFloat(document.getElementById('actual').value);
+            const actualTime = parseFloat(document.getElementById('actualTime').value);
+
+            const actualTimeInHours = actualTime / 60; // konvertuojame minutes į valandas
+            const actualRate = actualQuantity / actualTimeInHours; // gaminių kiekis per valandą
+
+            let resultMessage = `Planinis: ${plannedQuantity} vnt/h, Faktinis: ${actualRate.toFixed(2)} vnt/h.`;
+
+            if (actualRate > plannedQuantity) {
+                resultMessage += " Faktinis kiekis viršija planinį.";
+            } else {
+                resultMessage += " Faktinis kiekis yra mažesnis už planinį.";
+            }
+
+            document.getElementById('result').innerText = resultMessage;
+        }
+    </script>
+</body>
+
+</html>
